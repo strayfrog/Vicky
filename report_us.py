@@ -1,49 +1,41 @@
-import os, json, requests
+import os, json
 from datetime import datetime, timedelta
+# 🚀 強制使用最新世代 SDK
+from google import genai
 
-# --- 初始化 ---
-GEMINI_KEY = os.getenv("GEMINI_API_KEY")
-DISCORD_URL = os.getenv("DISCORD_WEBHOOK_URL")
+GEMINI_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 
-def generate_report():
-    if not os.path.exists('stock_data.json'): return
-    with open('stock_data.json', 'r', encoding='utf-8') as f:
-        data = json.load(f)
+def run():
+    now_tw = datetime.utcnow() + timedelta(hours=8)
     
-    tw_time = (datetime.utcnow() + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
-    
-    # 【核心升級：深度美股戰略指令】
-    prompt = f"""
-    你是總帥的美股首席戰略官。禁止任何廢話與問候，直接進入「硬核戰報」。
-    
-    【情報數據】: {json.dumps(data, ensure_ascii=False)}
-    【戰略防線】: 
-    - VOOG：標普500成長股。戰術：大盤下殺見綠時，手動點射 1 股。
-    - MU/NVDA：半導體核心。戰術：獲利保護，死抱不放，無視短期震盪。
-    
-    【戰報結構要求】:
-    1. 📡 **美股戰情總結**: 用一句話定調昨日美股盤勢（如：多頭反攻、空頭壓制、高檔震盪）。
-    2. 📊 **標的深度透視**: 針對 VOOG, MU, NVDA，列出精確價格，並分析其走勢是否偏離防線。
-    3. ⚔️ **今日行動指令**: 
-       - 判斷今日開盤是否為「點射時刻」？
-       - 針對 NVDA 與 MU 的持倉給出心理建設，強調「死抱」意志。
-    4. 💡 **風險預判**: 簡評今日可能影響市場的宏觀趨勢。
-    
-    語氣：專業、精確、冷酷。禁止使用軟弱字眼，改用「指令」、「執行」、「埋伏」。
-    """
-    
-    api_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_KEY}"
-    try:
-        response = requests.post(api_url, json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=30)
-        report = response.json()["candidates"][0]["content"]["parts"][0]["text"]
+    if not os.path.exists("data_us.json"):
+        print("Error: Missing data_us.json")
+        return
         
-        full_msg = f"🇺🇸 **【美股晨間硬核戰報 - {tw_time}】**\n{report}"
-        # 分段發送確保不截斷
-        for i in range(0, len(full_msg), 1900):
-            requests.post(DISCORD_URL, json={"content": full_msg[i:i+1900]})
-            
-        with open("report_us.md", "w", encoding="utf-8") as f: f.write(full_msg)
-    except Exception as e:
-        print(f"美股分析失敗: {e}")
+    with open("data_us.json", 'r', encoding='utf-8') as f:
+        market_data = json.load(f)
 
-if __name__ == "__main__": generate_report()
+    if not GEMINI_KEY:
+        print("Fatal: Missing GEMINI_API_KEY")
+        return
+    
+    client = genai.Client(api_key=GEMINI_KEY)
+    prompt = f"你是 Vicky 的首席投資顧問。請根據以下數據(晨間美股)進行戰略分析，給出具體建議，語氣強勢且精簡，禁止廢話：\n\n{json.dumps(market_data, ensure_ascii=False)}"
+
+    try:
+        print("Requesting US analysis via Gemini 2.0...")
+        # 🚀 強制使用您的 Key 支援的最新模型代號
+        response = client.models.generate_content(
+            model='gemini-2.0-flash',
+            contents=prompt
+        )
+        
+        with open("report_us.md", "w", encoding="utf-8") as f:
+            f.write(f"# 📡 Vicky 晨間美股戰報 - {now_tw.strftime('%Y-%m-%d %H:%M')}\n\n{response.text}")
+        print("Success! Generated report_us.md")
+
+    except Exception as e:
+        print(f"Gemini API Error: {e}")
+
+if __name__ == "__main__":
+    run()
