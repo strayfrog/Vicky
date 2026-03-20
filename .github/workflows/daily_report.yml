@@ -31,13 +31,13 @@ jobs:
       - name: Run US Report
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+         
         run: python report_us.py
 
       - name: Run TW Report
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          
         run: python report_tw.py
 
       - name: Sync Reports to Repo
