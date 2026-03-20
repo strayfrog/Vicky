@@ -1,41 +1,57 @@
-import os, json, requests
-from datetime import datetime, timedelta
+import os
+import json
+import requests
+import google.generativeai as genai
+from datetime import datetime
 
-# --- 初始化 ---
-GEMINI_KEY = os.getenv("GEMINI_API_KEY")
+# ==========================================
+# 1. 安全金鑰設定 (僅保留 Gemini)
+# ==========================================
+GOOGLE_API_KEY = os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=GOOGLE_API_KEY)
 
 def generate_report():
-    if not os.path.exists('stock_data.json'): return
-    with open('stock_data.json', 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    
-    tw_time = (datetime.utcnow() + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
-    
-    # 【核心升級：深度美股戰略指令】
-    prompt = f"""
-    你是總帥的美股首席戰略官。禁止任何廢話與問候，直接進入「硬核戰報」。
-    
-    【情報數據】: {json.dumps(data, ensure_ascii=False)}
-    【戰略防線】: 
-    - 根據美股持股做出分析
-    
-    
-    【戰報結構要求】:
-    1. 📡 **美股戰情總結**: 用一句話定調昨日美股盤勢（如：多頭反攻、空頭壓制、高檔震盪）。
-    2. 📊 **標的深度透視**: 針對 持股列出精確價格，並分析其走勢是否偏離防線。    
-    3. 💡 **風險預判**: 簡評今日可能影響市場的宏觀趨勢。
-    
-    語氣：專業、精確、冷酷。禁止使用軟弱字眼，改用「指令」、「執行」、「埋伏」。
-    """
-    
-    api_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_KEY}"
     try:
-        response = requests.post(api_url, json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=30)
-        report = response.json()["candidates"][0]["content"]["parts"][0]["text"]
+        # 讀取剛剛 fetch_data.py 產出的數據
+        with open('stock_data.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
         
-        full_msg = f"🇺🇸 **【美股晨間硬核戰報 - {tw_time}】**\n{report}"
-       
-    except Exception as e:
-        print(f"美股分析失敗: {e}")
+        # --- 【Vicky 專屬戰略標的】 ---
+        # 只針對這些標的進行分析
+        vicky_us_list = ["SPY", "VT", "GRAB", "AVGO", "GOOGL", "NVDA", "CRWD", "PLTR", "RBRK"]
+        us_data = {k: v for k, v in data['stocks'].items() if k in vicky_us_list or k in ["DJI", "IXIC", "SOX", "GSPC"]}
 
-if __name__ == "__main__": generate_report()
+        # ==========================================
+        # 2. Vicky 專屬 Prompt (調整為高成長股戰術風)
+        # ==========================================
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        
+        prompt = f"""
+        你是 Vicky 的美股戰略官。請根據以下數據進行硬核分析：
+        1. 簡評四大指數(DJI, IXIC, SOX, GSPC)的位階。
+        2. 針對高成長核心標的：PLTR、CRWD、RBRK、NVDA 進行點評。
+        3. 判斷今日盤勢是否適合執行「見綠點射」戰術。
+        4. 語氣要冷靜、專業、精確。
+        
+        數據內容：{json.dumps(us_data, ensure_ascii=False)}
+        """
+
+        response = model.generate_content(prompt)
+        report_content = response.text
+        
+        tw_time = datetime.now().strftime("%Y-%m-%d %H:%M")
+        full_msg = f"🇺🇸 **【Vicky 美股晨間戰報 - {tw_time}】**\n\n{report_content}"
+
+        # ==========================================
+        # 3. 寫入檔案 (取代 Discord 推送)
+        # ==========================================
+        with open('report_us.md', 'w', encoding='utf-8') as f:
+            f.write(full_msg)
+            
+        print("✅ Vicky 美股戰報已產出至 report_us.md")
+
+    except Exception as e:
+        print(f"❌ 產出報告失敗: {e}")
+
+if __name__ == "__main__":
+    generate_report()
