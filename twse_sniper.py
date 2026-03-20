@@ -1,12 +1,14 @@
 import yfinance as yf
 import json
+import os
 
-# --- VICKY 專屬標的設定 ---
+# --- 只換了這裡：VICKY 專屬標的 ---
 US_STOCKS = ["SPY", "VT", "GRAB", "AVGO", "GOOGL", "NVDA", "CRWD", "PLTR", "RBRK"]
 US_INDICES = {"道瓊": "^DJI", "納斯達克": "^IXIC", "費半": "^SOX", "S&P500": "^GSPC"}
 
 TW_STOCKS = ["2454.TW", "6257.TW", "2882.TW", "2887.TW", "2884.TW", "2890.TW", "00878.TW", "00713.TW", "006208.TW"]
 TW_INDICES = {"台股大盤": "^TWII"}
+# -----------------------------------
 
 def get_market_summary(tickers, rename_map=None):
     data = {}
@@ -36,7 +38,7 @@ def run():
     print("Fetching TW Data...")
     tw_data = {
         "Index": get_market_summary(list(TW_INDICES.values()), {v:k for k,v in TW_INDICES.items()}),
-        "Note": "註：三大法人買賣超數據未包含在內(yfinance無支援)",
+        "Note": "註：三大法人買賣超數據未包含在內",
         "Stocks": get_market_summary(TW_STOCKS)
     }
     with open("data_tw.json", "w", encoding="utf-8") as f:
