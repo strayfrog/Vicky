@@ -1,48 +1,60 @@
 import yfinance as yf
 import json
-import os
+import time
+import requests
+import urllib3
 
-# --- VICKY 專屬標的 ---
-US_STOCKS = ["SPY", "VT", "GRAB", "AVGO", "GOOGL", "NVDA", "CRWD", "PLTR", "RBRK"]
-US_INDICES = {"道瓊": "^DJI", "納斯達克": "^IXIC", "費半": "^SOX", "S&P500": "^GSPC"}
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-TW_STOCKS = ["2454.TW", "6257.TW", "2882.TW", "2887.TW", "2884.TW", "2890.TW", "00878.TW", "00713.TW", "006208.TW"]
-TW_INDICES = {"台股大盤": "^TWII"}
-# -----------------------------------
+def fetch_data():
+    # --- 【僅修改此處：替換為 Vicky 的標的】 ---
+    indices = {"^TWII": "台股加權", "^GSPC": "標普500", "^IXIC": "那斯達克", "^DJI": "道瓊", "^SOX": "費半"}
+    tw_list = ["2454", "6257", "2882", "2887", "2884", "2890", "00878", "00713", "006208"]
+    us_list = ["SPY", "VT", "GRAB", "AVGO", "GOOGL", "NVDA", "CRWD", "PLTR", "RBRK"]
+    
+    symbols = list(indices.keys()) + [f"{c}.TW" for c in tw_list] + us_list
+    result = {"stocks": {}, "institutional_investors": {}, "metadata": {"UpdateTime": time.strftime("%Y-%m-%d %H:%M:%S")}}
 
-def get_market_summary(tickers, rename_map=None):
-    data = {}
-    for ticker in tickers:
+    # A. 抓取股價
+    print("📡 正在同步台美股價...")
+    tickers = yf.Tickers(" ".join(symbols))
+    for sym in symbols:
         try:
-            stock = yf.Ticker(ticker)
-            hist = stock.history(period="2d")
-            if len(hist) >= 2:
-                current = hist['Close'].iloc[-1]
-                prev = hist['Close'].iloc[-2]
-                change = ((current - prev) / prev) * 100
-                name = rename_map.get(ticker, ticker) if rename_map else ticker
-                data[name] = {"price": round(current, 2), "change_%": round(change, 2)}
-        except Exception as e:
-            print(f"Error fetching {ticker}: {e}")
-    return data
+            price = tickers.tickers[sym].fast_info['last_price']
+            clean_code = sym.replace(".TW", "")
+            result["stocks"][clean_code] = {
+                "Price": round(price, 2), 
+                "Currency": "USD" if clean_code in us_list else ("PTS" if clean_code in indices else "TWD")
+            }
+        except: continue
 
-def run():
-    print("Fetching All Market Data...")
-    
-    # 🎯 關鍵修正：把所有數據包裝在同一個大字典裡，對標原本的架構
-    all_data = {
-        "US_Indices": get_market_summary(list(US_INDICES.values()), {v:k for k,v in US_INDICES.items()}),
-        "US_Stocks": get_market_summary(US_STOCKS),
-        "TW_Indices": get_market_summary(list(TW_INDICES.values()), {v:k for k,v in TW_INDICES.items()}),
-        "TW_Stocks": get_market_summary(TW_STOCKS),
-        "Note": "註：三大法人買賣超數據未包含在內(yfinance無支援)"
-    }
-    
-    # 🎯 關鍵修正：統一寫入 stock_data.json！
-    with open("stock_data.json", "w", encoding="utf-8") as f:
-        json.dump(all_data, f, ensure_ascii=False, indent=2)
+    # B. 三大法人 (切換為穩定路徑 + 偽裝標頭)
+    print("📡 正在強制突擊法人籌碼...")
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+    try:
+        # 改用這個節點，資料格式最穩定
+        url = "https://www.twse.com.tw/fund/BFI82U?response=json"
+        resp = requests.get(url, headers=headers, verify=False, timeout=20)
+        
+        if resp.status_code == 200:
+            data = resp.json()
+            # 格式解析：data['data'] 是一個列表，每一項是 [單位名稱, 買進, 賣出, 差額]
+            if 'data' in data:
+                for row in data['data']:
+                    name = row[0]
+                    diff_str = row[3].replace(",", "")
+                    billion = round(float(diff_str) / 100000000, 2)
+                    result["institutional_investors"][name] = f"{billion} 億"
+            else:
+                result["institutional_investors"]["status"] = "證交所尚未開牌"
+        else:
+            result["institutional_investors"]["status"] = f"連線受阻 (Code: {resp.status_code})"
+    except Exception as e:
+        result["institutional_investors"]["status"] = f"偵巡異常: {str(e)}"
 
-    print("Data Update Complete.")
+    with open('stock_data.json', 'w', encoding='utf-8') as f:
+        json.dump(result, f, ensure_ascii=False, indent=4)
+    print("✅ 全球資產戰報數據更新成功。")
 
 if __name__ == "__main__":
-    run()
+    fetch_data()
