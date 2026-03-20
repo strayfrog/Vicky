@@ -1,39 +1,57 @@
-name: Global Assets Intelligence Fetch
+import yfinance as yf
+import json
+import os
 
-on:
-  schedule:
-    # 07:00 (對應 UTC 23:00): 美股最終收盤數據
-    # 15:30 (對應 UTC 07:30): 台股收盤 + 三大法人籌碼數據
-    - cron: '0 23 * * *'
-    - cron: '30 7 * * *'
-  workflow_dispatch:
+# --- VICKY 專屬標的設定 (如圖與文字) ---
+# 美股標的 (修正 spelling)
+US_STOCKS = ["SPY", "VT", "GRAB", "AVGO", "GOOGL", "NVDA", "CRWD", "PLTR", "RBRK"]
+# 美股指數 (道瓊, NASDAQ, 費半, S&P500)
+US_INDICES = {"道瓊": "^DJI", "納斯達克": "^IXIC", "費半": "^SOX", "S&P500": "^GSPC"}
 
-permissions:
-  contents: write
+# 台股標的 (聯發科, 矽格, 國泰金, 台新金, 玉山金, 永豐金, 00878, 00713, 006208)
+TW_STOCKS = ["2454.TW", "6257.TW", "2882.TW", "2887.TW", "2884.TW", "2890.TW", "00878.TW", "00713.TW", "006208.TW"]
+# 台股指數
+TW_INDICES = {"台股大盤": "^TWII"}
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-          
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install yfinance requests
-        
-      - name: Run Python Script
-        run: python twse_sniper.py
-        
-      - name: Commit and Push
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          touch stock_data.json
-          git add stock_data.json
-          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 偵巡更新：台美股價與法人籌碼"
-          git push
+def get_market_summary(tickers, rename_map=None):
+    data = {}
+    for ticker in tickers:
+        try:
+            stock = yf.Ticker(ticker)
+            hist = stock.history(period="2d")
+            if len(hist) >= 2:
+                current = hist['Close'].iloc[-1]
+                prev = hist['Close'].iloc[-2]
+                change = ((current - prev) / prev) * 100
+                name = rename_map.get(ticker, ticker) if rename_map else ticker
+                data[name] = {"price": round(current, 2), "change_%": round(change, 2)}
+        except Exception as e:
+            print(f"Error fetching {ticker}: {e}")
+    return data
+
+def run():
+    # 抓取美股數據
+    print("Fetching US Data...")
+    # 費半也抓下來了 (使用 ^SOX)
+    us_data = {
+        "Indices": get_market_summary(list(US_INDICES.values()), {v:k for k,v in US_INDICES.items()}),
+        "Stocks": get_market_summary(US_STOCKS)
+    }
+    with open("data_us.json", "w", encoding="utf-8") as f:
+        json.dump(us_data, f, ensure_ascii=False, indent=2)
+
+    # 抓取台股數據
+    print("Fetching TW Data...")
+    tw_data = {
+        "Index": get_market_summary(list(TW_INDICES.values()), {v:k for k,v in TW_INDICES.items()}),
+        # 註：yfinance 沒有直接的三大法人買賣超數據，除非用更複雜的爬蟲
+        "Note": "註：三大法人買賣超數據未包含在內",
+        "Stocks": get_market_summary(TW_STOCKS)
+    }
+    with open("data_tw.json", "w", encoding="utf-8") as f:
+        json.dump(tw_data, f, ensure_ascii=False, indent=2)
+    
+    print("Data Update Complete.")
+
+if __name__ == "__main__":
+    run()
