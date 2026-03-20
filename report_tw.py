@@ -38,11 +38,7 @@ def generate_report():
         report = response.json()["candidates"][0]["content"]["parts"][0]["text"]
         
         full_msg = f"🇹🇼 **【台股盤後法人戰報 - {tw_time}】**\n{report}"
-        # 分段發送確保不截斷
-        for i in range(0, len(full_msg), 1900):
-            requests.post(DISCORD_URL, json={"content": full_msg[i:i+1900]})
-            
-        with open("report_tw.md", "w", encoding="utf-8") as f: f.write(full_msg)
+
     except Exception as e:
         print(f"台股分析失敗: {e}")
 
