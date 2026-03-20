@@ -1,49 +1,39 @@
-import os, json, requests
+import os, json
 from datetime import datetime, timedelta
+from google import genai
 
-# --- 初始化 ---
-GEMINI_KEY = os.getenv("GEMINI_API_KEY")
-DISCORD_URL = os.getenv("DISCORD_WEBHOOK_URL")
+GEMINI_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 
-def generate_report():
-    if not os.path.exists('stock_data.json'): return
-    with open('stock_data.json', 'r', encoding='utf-8') as f:
-        data = json.load(f)
+def run():
+    now_tw = datetime.utcnow() + timedelta(hours=8)
     
-    tw_time = (datetime.utcnow() + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
-    
-    # 【核心升級：法人與防線深度解碼】
-    prompt = f"""
-    你是總帥的台股戰略副官。禁止開場白，直接進行「法人與防線深度解碼」。
-    
-    【情報數據】: {json.dumps(data, ensure_ascii=False)}
-    【核心防線】: 0050 於 25.4 萬台幣水位建立階梯防禦。
-    
-    【戰報結構要求】:
-    1. 🇹🇼 **台股盤勢掃描**: 簡評今日台股大盤走勢與量能氣氛。
-    2. 🕵️ **法人動向偵查**: 
-       - 深度解讀「外資、投信、自營商」的買賣超具體數字與力道。
-       - 分析法人的集體行為是「撤退」、「撤資」還是「暗中佈局」。
-    3. 🛡️ **防線沙盤推演**: 
-       - 根據 0050 現價，精確計算距離「25.4 萬」防線還有多少百分比空間？
-       - 若法人大賣，分析防線是否面臨威脅？
-    4. ⚔️ **明日預判行動**: 給出明日開盤前的具體戰略部署建議。
-    
-    語氣：冷峻、嚴肅、數據導向。內容要飽滿，必須提到具體的買賣超數字。
-    """
-    
-    api_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_KEY}"
-    try:
-        response = requests.post(api_url, json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=30)
-        report = response.json()["candidates"][0]["content"]["parts"][0]["text"]
+    if not os.path.exists("data_tw.json"):
+        print("Error: Missing data_tw.json")
+        return
         
-        full_msg = f"🇹🇼 **【台股盤後法人戰報 - {tw_time}】**\n{report}"
-        # 分段發送確保不截斷
-        for i in range(0, len(full_msg), 1900):
-            requests.post(DISCORD_URL, json={"content": full_msg[i:i+1900]})
-            
-        with open("report_tw.md", "w", encoding="utf-8") as f: f.write(full_msg)
-    except Exception as e:
-        print(f"台股分析失敗: {e}")
+    with open("data_tw.json", 'r', encoding='utf-8') as f:
+        market_data = json.load(f)
 
-if __name__ == "__main__": generate_report()
+    if not GEMINI_KEY:
+        print("Fatal: Missing GEMINI_API_KEY")
+        return
+    
+    client = genai.Client(api_key=GEMINI_KEY)
+    prompt = f"你是 Vicky 的首席投資顧問。請根據以下數據(盤後台股)進行戰略分析，給出具體建議，語氣強勢且精簡，禁止廢話：\n\n{json.dumps(market_data, ensure_ascii=False)}"
+
+    try:
+        print("Requesting TW analysis via Gemini 2.0...")
+        response = client.models.generate_content(
+            model='gemini-2.0-flash',
+            contents=prompt
+        )
+        
+        with open("report_tw.md", "w", encoding="utf-8") as f:
+            f.write(f"# 📡 Vicky 盤後台股戰報 - {now_tw.strftime('%Y-%m-%d %H:%M')}\n\n{response.text}")
+        print("Success! Generated report_tw.md")
+
+    except Exception as e:
+        print(f"Gemini API Error: {e}")
+
+if __name__ == "__main__":
+    run()
