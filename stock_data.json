@@ -1,98 +1,107 @@
 {
-  "US_Indices": {
-    "道瓊": {
-      "price": 46021.43,
-      "change_%": -0.44
+    "stocks": {
+        "^TWII": {
+            "Price": 33543.88,
+            "Currency": "PTS"
+        },
+        "^GSPC": {
+            "Price": 6606.49,
+            "Currency": "PTS"
+        },
+        "^IXIC": {
+            "Price": 22090.69,
+            "Currency": "PTS"
+        },
+        "^DJI": {
+            "Price": 46021.43,
+            "Currency": "PTS"
+        },
+        "^SOX": {
+            "Price": 7863.3,
+            "Currency": "PTS"
+        },
+        "2454": {
+            "Price": 1700.0,
+            "Currency": "TWD"
+        },
+        "6257": {
+            "Price": 132.5,
+            "Currency": "TWD"
+        },
+        "2882": {
+            "Price": 72.0,
+            "Currency": "TWD"
+        },
+        "2887": {
+            "Price": 24.65,
+            "Currency": "TWD"
+        },
+        "2884": {
+            "Price": 31.8,
+            "Currency": "TWD"
+        },
+        "2890": {
+            "Price": 32.15,
+            "Currency": "TWD"
+        },
+        "00878": {
+            "Price": 22.47,
+            "Currency": "TWD"
+        },
+        "00713": {
+            "Price": 51.7,
+            "Currency": "TWD"
+        },
+        "006208": {
+            "Price": 176.2,
+            "Currency": "TWD"
+        },
+        "SPY": {
+            "Price": 659.8,
+            "Currency": "USD"
+        },
+        "VT": {
+            "Price": 139.55,
+            "Currency": "USD"
+        },
+        "GRAB": {
+            "Price": 3.68,
+            "Currency": "USD"
+        },
+        "AVGO": {
+            "Price": 319.84,
+            "Currency": "USD"
+        },
+        "GOOGL": {
+            "Price": 307.13,
+            "Currency": "USD"
+        },
+        "NVDA": {
+            "Price": 178.56,
+            "Currency": "USD"
+        },
+        "CRWD": {
+            "Price": 428.18,
+            "Currency": "USD"
+        },
+        "PLTR": {
+            "Price": 155.68,
+            "Currency": "USD"
+        },
+        "RBRK": {
+            "Price": 50.92,
+            "Currency": "USD"
+        }
     },
-    "納斯達克": {
-      "price": 22090.69,
-      "change_%": -0.28
+    "institutional_investors": {
+        "自營商(自行買賣)": "-31.32 億",
+        "自營商(避險)": "-69.73 億",
+        "投信": "12.77 億",
+        "外資及陸資(不含外資自營商)": "-399.86 億",
+        "外資自營商": "0.0 億",
+        "合計": "-488.13 億"
     },
-    "費半": {
-      "price": 7863.3,
-      "change_%": 0.87
-    },
-    "S&P500": {
-      "price": 6606.49,
-      "change_%": -0.27
+    "metadata": {
+        "UpdateTime": "2026-03-20 07:48:35"
     }
-  },
-  "US_Stocks": {
-    "SPY": {
-      "price": 659.8,
-      "change_%": -0.25
-    },
-    "VT": {
-      "price": 139.55,
-      "change_%": -0.19
-    },
-    "GRAB": {
-      "price": 3.68,
-      "change_%": -1.87
-    },
-    "AVGO": {
-      "price": 319.84,
-      "change_%": 1.24
-    },
-    "GOOGL": {
-      "price": 307.13,
-      "change_%": -0.18
-    },
-    "NVDA": {
-      "price": 178.56,
-      "change_%": -1.02
-    },
-    "CRWD": {
-      "price": 428.18,
-      "change_%": -1.75
-    },
-    "PLTR": {
-      "price": 155.68,
-      "change_%": 1.9
-    },
-    "RBRK": {
-      "price": 50.92,
-      "change_%": -2.25
-    }
-  },
-  "TW_Indices": {},
-  "TW_Stocks": {
-    "2454.TW": {
-      "price": 1685.0,
-      "change_%": 0.3
-    },
-    "6257.TW": {
-      "price": 133.5,
-      "change_%": -0.74
-    },
-    "2882.TW": {
-      "price": 72.5,
-      "change_%": 1.26
-    },
-    "2887.TW": {
-      "price": 24.7,
-      "change_%": 1.02
-    },
-    "2884.TW": {
-      "price": 31.5,
-      "change_%": -0.63
-    },
-    "2890.TW": {
-      "price": 32.4,
-      "change_%": 2.21
-    },
-    "00878.TW": {
-      "price": 22.48,
-      "change_%": 0.04
-    },
-    "00713.TW": {
-      "price": 51.7,
-      "change_%": -1.52
-    },
-    "006208.TW": {
-      "price": 176.1,
-      "change_%": -0.28
-    }
-  },
-  "Note": "註：三大法人買賣超數據未包含在內(yfinance無支援)"
 }
