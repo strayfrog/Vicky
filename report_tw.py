@@ -1,45 +1,59 @@
-import os, json, requests
-from datetime import datetime, timedelta
+import os
+import json
+import requests
+import google.generativeai as genai
+from datetime import datetime
 
-# --- 初始化 ---
-GEMINI_KEY = os.getenv("GEMINI_API_KEY")
-
+# ==========================================
+# 1. 安全金鑰設定 (僅保留 Gemini)
+# ==========================================
+GOOGLE_API_KEY = os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=GOOGLE_API_KEY)
 
 def generate_report():
-    if not os.path.exists('stock_data.json'): return
-    with open('stock_data.json', 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    
-    tw_time = (datetime.utcnow() + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
-    
-    # 【核心升級：法人與防線深度解碼】
-    prompt = f"""
-    你是總帥的台股戰略副官。禁止開場白，直接進行「法人與防線深度解碼」。
-    
-    【情報數據】: {json.dumps(data, ensure_ascii=False)}
-    【核心戰略防線 - 嚴格監控項目】：
-   查詢持股走向給出建議
-    
-    
-    【戰報結構要求】:
-   戰報結構要求】：
-    1. 🇹🇼 **台股盤勢掃描**: 簡評今日台股大盤走勢與量能氣氛。
-    2. 🕵️ **法人動向偵查**: 
-       - 深度解讀「外資、投信、自營商」的買賣超具體數字（以億為單位）。
-       - 分析法人集體行為：是撤退、避險，還是暗中佈局？
-    3. ⚔️ **明日預判行動**: 給出明日開盤前的具體戰略部署建議（如：按兵不動、分批掛單、或準備啟動質押資金）。
-    
-    語氣：冷峻、嚴肅、數據導向。內容要飽滿，必須提到具體的買賣超數字。
-    """
-    
-    api_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_KEY}"
     try:
-        response = requests.post(api_url, json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=30)
-        report = response.json()["candidates"][0]["content"]["parts"][0]["text"]
+        # 讀取剛剛 fetch_data.py 產出的數據
+        with open('stock_data.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
         
-        full_msg = f"🇹🇼 **【台股盤後法人戰報 - {tw_time}】**\n{report}"
+        # --- 【Vicky 專屬戰略標的】 ---
+        vicky_tw_list = ["2454", "6257", "2882", "2887", "2884", "2890", "00878", "00713", "006208"]
+        tw_data = {
+            "stocks": {k: v for k, v in data['stocks'].items() if k in vicky_tw_list or k == "TWII"},
+            "institutional_investors": data.get('institutional_investors', {})
+        }
+
+        # ==========================================
+        # 2. Vicky 專屬台股 Prompt
+        # ==========================================
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        
+        prompt = f"""
+        你是 Vicky 的台股戰略官。請根據以下數據進行精確分析：
+        1. 簡評大盤(TWII)位階與今日法人籌碼動向。
+        2. 針對核心標的：2454(聯發科)、6257(矽格)、以及金融股(2882, 2887等)進行點評。
+        3. 觀察高股息ETF(00878, 00713)與006208的配置狀態。
+        4. 語氣要冷靜、專業、像一名戰略傳令兵。
+        
+        數據內容：{json.dumps(tw_data, ensure_ascii=False)}
+        """
+
+        response = model.generate_content(prompt)
+        report_content = response.text
+        
+        tw_time = datetime.now().strftime("%Y-%m-%d %H:%M")
+        full_msg = f"🇹🇼 **【Vicky 台股盤後戰報 - {tw_time}】**\n\n{report_content}"
+
+        # ==========================================
+        # 3. 寫入檔案 (取代 Discord 推送)
+        # ==========================================
+        with open('report_tw.md', 'w', encoding='utf-8') as f:
+            f.write(full_msg)
+            
+        print("✅ Vicky 台股戰報已成功寫入 report_tw.md")
 
     except Exception as e:
-        print(f"台股分析失敗: {e}")
+        print(f"❌ 台股報告產出失敗: {e}")
 
-if __name__ == "__main__": generate_report()
+if __name__ == "__main__":
+    generate_report()
