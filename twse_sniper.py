@@ -2,7 +2,7 @@ import yfinance as yf
 import json
 import os
 
-# --- 只換了這裡：VICKY 專屬標的 ---
+# --- VICKY 專屬標的 ---
 US_STOCKS = ["SPY", "VT", "GRAB", "AVGO", "GOOGL", "NVDA", "CRWD", "PLTR", "RBRK"]
 US_INDICES = {"道瓊": "^DJI", "納斯達克": "^IXIC", "費半": "^SOX", "S&P500": "^GSPC"}
 
@@ -27,23 +27,21 @@ def get_market_summary(tickers, rename_map=None):
     return data
 
 def run():
-    print("Fetching US Data...")
-    us_data = {
-        "Indices": get_market_summary(list(US_INDICES.values()), {v:k for k,v in US_INDICES.items()}),
-        "Stocks": get_market_summary(US_STOCKS)
-    }
-    with open("data_us.json", "w", encoding="utf-8") as f:
-        json.dump(us_data, f, ensure_ascii=False, indent=2)
-
-    print("Fetching TW Data...")
-    tw_data = {
-        "Index": get_market_summary(list(TW_INDICES.values()), {v:k for k,v in TW_INDICES.items()}),
-        "Note": "註：三大法人買賣超數據未包含在內",
-        "Stocks": get_market_summary(TW_STOCKS)
-    }
-    with open("data_tw.json", "w", encoding="utf-8") as f:
-        json.dump(tw_data, f, ensure_ascii=False, indent=2)
+    print("Fetching All Market Data...")
     
+    # 🎯 關鍵修正：把所有數據包裝在同一個大字典裡，對標原本的架構
+    all_data = {
+        "US_Indices": get_market_summary(list(US_INDICES.values()), {v:k for k,v in US_INDICES.items()}),
+        "US_Stocks": get_market_summary(US_STOCKS),
+        "TW_Indices": get_market_summary(list(TW_INDICES.values()), {v:k for k,v in TW_INDICES.items()}),
+        "TW_Stocks": get_market_summary(TW_STOCKS),
+        "Note": "註：三大法人買賣超數據未包含在內(yfinance無支援)"
+    }
+    
+    # 🎯 關鍵修正：統一寫入 stock_data.json！
+    with open("stock_data.json", "w", encoding="utf-8") as f:
+        json.dump(all_data, f, ensure_ascii=False, indent=2)
+
     print("Data Update Complete.")
 
 if __name__ == "__main__":
