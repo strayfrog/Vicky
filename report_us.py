@@ -3,7 +3,6 @@ from datetime import datetime, timedelta
 
 # --- 初始化 ---
 GEMINI_KEY = os.getenv("GEMINI_API_KEY")
-DISCORD_URL = os.getenv("DISCORD_WEBHOOK_URL")
 
 def generate_report():
     if not os.path.exists('stock_data.json'): return
