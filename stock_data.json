@@ -1,0 +1,98 @@
+{
+  "US_Indices": {
+    "道瓊": {
+      "price": 46021.43,
+      "change_%": -0.44
+    },
+    "納斯達克": {
+      "price": 22090.69,
+      "change_%": -0.28
+    },
+    "費半": {
+      "price": 7863.3,
+      "change_%": 0.87
+    },
+    "S&P500": {
+      "price": 6606.49,
+      "change_%": -0.27
+    }
+  },
+  "US_Stocks": {
+    "SPY": {
+      "price": 659.8,
+      "change_%": -0.25
+    },
+    "VT": {
+      "price": 139.55,
+      "change_%": -0.19
+    },
+    "GRAB": {
+      "price": 3.68,
+      "change_%": -1.87
+    },
+    "AVGO": {
+      "price": 319.84,
+      "change_%": 1.24
+    },
+    "GOOGL": {
+      "price": 307.13,
+      "change_%": -0.18
+    },
+    "NVDA": {
+      "price": 178.56,
+      "change_%": -1.02
+    },
+    "CRWD": {
+      "price": 428.18,
+      "change_%": -1.75
+    },
+    "PLTR": {
+      "price": 155.68,
+      "change_%": 1.9
+    },
+    "RBRK": {
+      "price": 50.92,
+      "change_%": -2.25
+    }
+  },
+  "TW_Indices": {},
+  "TW_Stocks": {
+    "2454.TW": {
+      "price": 1685.0,
+      "change_%": 0.3
+    },
+    "6257.TW": {
+      "price": 133.5,
+      "change_%": -0.74
+    },
+    "2882.TW": {
+      "price": 72.5,
+      "change_%": 1.26
+    },
+    "2887.TW": {
+      "price": 24.7,
+      "change_%": 1.02
+    },
+    "2884.TW": {
+      "price": 31.5,
+      "change_%": -0.63
+    },
+    "2890.TW": {
+      "price": 32.4,
+      "change_%": 2.21
+    },
+    "00878.TW": {
+      "price": 22.48,
+      "change_%": 0.04
+    },
+    "00713.TW": {
+      "price": 51.7,
+      "change_%": -1.52
+    },
+    "006208.TW": {
+      "price": 176.1,
+      "change_%": -0.28
+    }
+  },
+  "Note": "註：三大法人買賣超數據未包含在內(yfinance無支援)"
+}
