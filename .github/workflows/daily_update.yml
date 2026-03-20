@@ -37,3 +37,4 @@ jobs:
           git add stock_data.json
           git diff --quiet && git diff --staged --quiet || git commit -m "🤖 偵巡更新：台美股價與法人籌碼"
           git push
+
