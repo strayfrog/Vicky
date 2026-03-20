@@ -1,0 +1,49 @@
+name: Strategic Dual-Track Automation
+
+on:
+  schedule:
+    # 台灣 07:55 (UTC 23:55，前一天)
+    - cron: '55 23 * * *'
+    # 台灣 15:55 (UTC 07:55)
+    - cron: '55 7 * * *'
+  push:
+    paths:
+      - 'stock_data.json'
+  workflow_dispatch:
+
+jobs:
+  strategic_reporting:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install requests
+
+      - name: Run US Report
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python report_us.py
+
+      - name: Run TW Report
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python report_tw.py
+
+      - name: Sync Reports to Repo
+        run: |
+          git config --global user.name "Strategic-Bot"
+          git config --global user.email "bot@github.com"
+          git add report_us.md report_tw.md || true
+          git commit -m "📡 Update Tactical Reports (Pre-scheduled)" || exit 0
+          git push
