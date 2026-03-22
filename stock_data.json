@@ -77,7 +77,7 @@
             "Currency": "USD"
         },
         "NVDA": {
-            "Price": 172.7,
+            "Price": 172.93,
             "Currency": "USD"
         },
         "CRWD": {
@@ -102,6 +102,6 @@
         "合計": "-493.58 億"
     },
     "metadata": {
-        "UpdateTime": "2026-03-22 07:55:45"
+        "UpdateTime": "2026-03-22 23:24:18"
     }
 }
