@@ -70,15 +70,16 @@ jobs:
               media = MediaFileUpload(file_name, resumable=True)
               
               if items:
-                  # 若檔案已存在，則執行覆蓋更新 (保持同一檔案網址與 ID)
+                  # 若檔案已存在，則執行覆蓋更新 (因檔案擁有者為人類帳戶，不消耗服務帳戶配額)
                   file_id = items[0]['id']
                   drive_service.files().update(fileId=file_id, media_body=media).execute()
                   print(f"✅ 檔案已成功覆蓋更新至 Google Drive: {file_name}")
               else:
-                  # 若檔案不存在，則新建檔案
-                  file_metadata = {'name': file_name, 'parents': [folder_id]}
-                  drive_service.files().create(body=file_metadata, media_body=media, fields='id').execute()
-                  print(f"✅ 檔案已成功新建至 Google Drive: {file_name}")
+                  # 檔案不存在：直接中斷並提醒手動建立
+                  print(f"❌ 錯誤: 在 Google Drive 目標資料夾中找不到 '{file_name}'。")
+                  print("⚠️ 由於 Google 服務帳戶無儲存空間配額，無法直接 '建立' 檔案。")
+                  print("🛠️ 解法: 請在 Google Drive 該資料夾內「手動建立」一個空白的 stock_data.json。")
+                  sys.exit(1)
           except Exception as e:
               print(f"❌ Google Drive 同步過程發生異常: {e}")
               sys.exit(1)
