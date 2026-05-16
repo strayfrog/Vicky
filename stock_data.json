@@ -94,14 +94,9 @@
         }
     },
     "institutional_investors": {
-        "自營商(自行買賣)": "-52.95 億",
-        "自營商(避險)": "-196.48 億",
-        "投信": "-13.67 億",
-        "外資及陸資(不含外資自營商)": "-104.27 億",
-        "外資自營商": "0.0 億",
-        "合計": "-367.37 億"
+        "status": "偵巡異常: HTTPSConnectionPool(host='www.twse.com.tw', port=443): Max retries exceeded with url: /fund/BFI82U?response=json (Caused by NameResolutionError(\"HTTPSConnection(host='www.twse.com.tw', port=443): Failed to resolve 'www.twse.com.tw' ([Errno -3] Temporary failure in name resolution)\"))"
     },
     "metadata": {
-        "UpdateTime": "2026-05-15 23:52:32"
+        "UpdateTime": "2026-05-16 09:10:03"
     }
 }
