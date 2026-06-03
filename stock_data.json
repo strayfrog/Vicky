@@ -5,19 +5,19 @@
             "Currency": "PTS"
         },
         "^GSPC": {
-            "Price": 7599.96,
+            "Price": 7609.78,
             "Currency": "PTS"
         },
         "^IXIC": {
-            "Price": 27086.81,
+            "Price": 27093.9,
             "Currency": "PTS"
         },
         "^DJI": {
-            "Price": 51078.88,
+            "Price": 51307.79,
             "Currency": "PTS"
         },
         "^SOX": {
-            "Price": 12965.65,
+            "Price": 13726.27,
             "Currency": "PTS"
         },
         "2454": {
@@ -57,51 +57,46 @@
             "Currency": "TWD"
         },
         "SPY": {
-            "Price": 758.54,
+            "Price": 759.57,
             "Currency": "USD"
         },
         "VT": {
-            "Price": 158.6,
+            "Price": 159.35,
             "Currency": "USD"
         },
         "GRAB": {
-            "Price": 3.61,
+            "Price": 3.6,
             "Currency": "USD"
         },
         "AVGO": {
-            "Price": 459.97,
+            "Price": 481.57,
             "Currency": "USD"
         },
         "GOOGL": {
-            "Price": 376.37,
+            "Price": 361.85,
             "Currency": "USD"
         },
         "NVDA": {
-            "Price": 224.36,
+            "Price": 222.82,
             "Currency": "USD"
         },
         "CRWD": {
-            "Price": 782.17,
+            "Price": 768.95,
             "Currency": "USD"
         },
         "PLTR": {
-            "Price": 160.65,
+            "Price": 152.17,
             "Currency": "USD"
         },
         "RBRK": {
-            "Price": 85.07,
+            "Price": 82.33,
             "Currency": "USD"
         }
     },
     "institutional_investors": {
-        "自營商(自行買賣)": "-54.35 億",
-        "自營商(避險)": "-103.33 億",
-        "投信": "15.84 億",
-        "外資及陸資(不含外資自營商)": "102.82 億",
-        "外資自營商": "0.0 億",
-        "合計": "-39.02 億"
+        "status": "偵巡異常: HTTPSConnectionPool(host='www.twse.com.tw', port=443): Read timed out. (read timeout=20)"
     },
     "metadata": {
-        "UpdateTime": "2026-06-02 11:48:45"
+        "UpdateTime": "2026-06-03 00:25:20"
     }
 }
