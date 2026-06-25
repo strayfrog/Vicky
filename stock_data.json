@@ -1,7 +1,7 @@
 {
     "stocks": {
         "^TWII": {
-            "Price": 46043.6,
+            "Price": 46255.26,
             "Currency": "PTS"
         },
         "^GSPC": {
@@ -9,7 +9,7 @@
             "Currency": "PTS"
         },
         "^IXIC": {
-            "Price": 25476.63,
+            "Price": 25476.64,
             "Currency": "PTS"
         },
         "^DJI": {
@@ -17,43 +17,43 @@
             "Currency": "PTS"
         },
         "^SOX": {
-            "Price": 13458.19,
+            "Price": 13458.2,
             "Currency": "PTS"
         },
         "2454": {
-            "Price": 4285.0,
+            "Price": 4310.0,
             "Currency": "TWD"
         },
         "6257": {
-            "Price": 242.5,
+            "Price": 238.0,
             "Currency": "TWD"
         },
         "2882": {
-            "Price": 110.0,
+            "Price": 111.5,
             "Currency": "TWD"
         },
         "2887": {
-            "Price": 31.6,
+            "Price": 31.85,
             "Currency": "TWD"
         },
         "2884": {
-            "Price": 35.0,
+            "Price": 35.45,
             "Currency": "TWD"
         },
         "2890": {
-            "Price": 39.55,
+            "Price": 39.95,
             "Currency": "TWD"
         },
         "00878": {
-            "Price": 33.66,
+            "Price": 33.75,
             "Currency": "TWD"
         },
         "00713": {
-            "Price": 60.5,
+            "Price": 60.85,
             "Currency": "TWD"
         },
         "006208": {
-            "Price": 247.95,
+            "Price": 248.1,
             "Currency": "TWD"
         },
         "SPY": {
@@ -94,14 +94,14 @@
         }
     },
     "institutional_investors": {
-        "自營商(自行買賣)": "-50.12 億",
-        "自營商(避險)": "-314.74 億",
-        "投信": "33.0 億",
-        "外資及陸資(不含外資自營商)": "-1774.03 億",
+        "自營商(自行買賣)": "-22.54 億",
+        "自營商(避險)": "-47.47 億",
+        "投信": "161.41 億",
+        "外資及陸資(不含外資自營商)": "-405.1 億",
         "外資自營商": "0.0 億",
-        "合計": "-2105.9 億"
+        "合計": "-313.7 億"
     },
     "metadata": {
-        "UpdateTime": "2026-06-25 00:06:36"
+        "UpdateTime": "2026-06-25 10:24:08"
     }
 }
