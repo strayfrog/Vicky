@@ -1,7 +1,7 @@
 {
     "stocks": {
         "^TWII": {
-            "Price": 46125.91,
+            "Price": 47018.99,
             "Currency": "PTS"
         },
         "^GSPC": {
@@ -21,39 +21,39 @@
             "Currency": "PTS"
         },
         "2454": {
-            "Price": 4245.0,
+            "Price": 4335.0,
             "Currency": "TWD"
         },
         "6257": {
-            "Price": 237.0,
+            "Price": 245.0,
             "Currency": "TWD"
         },
         "2882": {
-            "Price": 98.3,
+            "Price": 95.0,
             "Currency": "TWD"
         },
         "2887": {
-            "Price": 33.25,
+            "Price": 33.35,
             "Currency": "TWD"
         },
         "2884": {
-            "Price": 34.45,
+            "Price": 32.9,
             "Currency": "TWD"
         },
         "2890": {
-            "Price": 39.9,
+            "Price": 40.0,
             "Currency": "TWD"
         },
         "00878": {
-            "Price": 33.5,
+            "Price": 33.32,
             "Currency": "TWD"
         },
         "00713": {
-            "Price": 60.2,
+            "Price": 59.9,
             "Currency": "TWD"
         },
         "006208": {
-            "Price": 250.2,
+            "Price": 253.65,
             "Currency": "TWD"
         },
         "SPY": {
@@ -94,9 +94,14 @@
         }
     },
     "institutional_investors": {
-        "status": "連線受阻 (Code: 307)"
+        "自營商(自行買賣)": "-1.73 億",
+        "自營商(避險)": "61.11 億",
+        "投信": "146.21 億",
+        "外資及陸資(不含外資自營商)": "323.76 億",
+        "外資自營商": "0.0 億",
+        "合計": "529.36 億"
     },
     "metadata": {
-        "UpdateTime": "2026-07-01 00:02:47"
+        "UpdateTime": "2026-07-01 10:53:07"
     }
 }
