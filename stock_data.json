@@ -5,19 +5,19 @@
             "Currency": "PTS"
         },
         "^GSPC": {
-            "Price": 7736.52,
+            "Price": 7723.55,
             "Currency": "PTS"
         },
         "^IXIC": {
-            "Price": 26584.99,
+            "Price": 26363.44,
             "Currency": "PTS"
         },
         "^DJI": {
-            "Price": 54085.88,
+            "Price": 54349.12,
             "Currency": "PTS"
         },
         "^SOX": {
-            "Price": 12179.26,
+            "Price": 12008.88,
             "Currency": "PTS"
         },
         "2454": {
@@ -57,51 +57,51 @@
             "Currency": "TWD"
         },
         "SPY": {
-            "Price": 771.33,
+            "Price": 769.79,
             "Currency": "USD"
         },
         "VT": {
-            "Price": 160.45,
+            "Price": 160.17,
             "Currency": "USD"
         },
         "GRAB": {
-            "Price": 3.72,
+            "Price": 3.74,
             "Currency": "USD"
         },
         "AVGO": {
-            "Price": 418.16,
+            "Price": 418.28,
             "Currency": "USD"
         },
         "GOOGL": {
-            "Price": 377.65,
+            "Price": 362.43,
             "Currency": "USD"
         },
         "NVDA": {
-            "Price": 211.94,
+            "Price": 219.22,
             "Currency": "USD"
         },
         "CRWD": {
-            "Price": 211.22,
+            "Price": 209.86,
             "Currency": "USD"
         },
         "PLTR": {
-            "Price": 162.66,
+            "Price": 158.43,
             "Currency": "USD"
         },
         "RBRK": {
-            "Price": 80.99,
+            "Price": 84.81,
             "Currency": "USD"
         }
     },
     "institutional_investors": {
         "自營商(自行買賣)": "-23.27 億",
         "自營商(避險)": "37.84 億",
-        "投信": "86.41 億",
+        "投信": "112.66 億",
         "外資及陸資(不含外資自營商)": "903.08 億",
         "外資自營商": "0.0 億",
-        "合計": "1004.06 億"
+        "合計": "1030.31 億"
     },
     "metadata": {
-        "UpdateTime": "2026-08-05 10:05:02"
+        "UpdateTime": "2026-08-05 23:56:13"
     }
 }
