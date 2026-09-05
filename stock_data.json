@@ -69,7 +69,7 @@
             "Currency": "USD"
         },
         "AVGO": {
-            "Price": 357.89,
+            "Price": 357.9,
             "Currency": "USD"
         },
         "GOOGL": {
@@ -102,6 +102,6 @@
         "合計": "616.72 億"
     },
     "metadata": {
-        "UpdateTime": "2026-09-05 00:35:13"
+        "UpdateTime": "2026-09-05 11:20:42"
     }
 }
