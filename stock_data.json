@@ -25,11 +25,11 @@
             "Currency": "TWD"
         },
         "6257": {
-            "Price": 244.5,
+            "Price": 233.0,
             "Currency": "TWD"
         },
         "2882": {
-            "Price": 110.5,
+            "Price": 113.0,
             "Currency": "TWD"
         },
         "2887": {
@@ -41,19 +41,19 @@
             "Currency": "TWD"
         },
         "2890": {
-            "Price": 45.25,
+            "Price": 45.3,
             "Currency": "TWD"
         },
         "00878": {
-            "Price": 34.83,
+            "Price": 35.01,
             "Currency": "TWD"
         },
         "00713": {
-            "Price": 65.1,
+            "Price": 63.85,
             "Currency": "TWD"
         },
         "006208": {
-            "Price": 251.2,
+            "Price": 246.55,
             "Currency": "TWD"
         },
         "SPY": {
@@ -102,6 +102,6 @@
         "合計": "1194.51 億"
     },
     "metadata": {
-        "UpdateTime": "2026-09-20 12:32:41"
+        "UpdateTime": "2026-09-21 00:47:53"
     }
 }
