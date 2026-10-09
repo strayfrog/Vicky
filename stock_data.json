@@ -5,19 +5,19 @@
             "Currency": "PTS"
         },
         "^GSPC": {
-            "Price": 7787.43,
+            "Price": 7765.36,
             "Currency": "PTS"
         },
         "^IXIC": {
-            "Price": 27453.47,
+            "Price": 27193.34,
             "Currency": "PTS"
         },
         "^DJI": {
-            "Price": 51073.06,
+            "Price": 51231.64,
             "Currency": "PTS"
         },
         "^SOX": {
-            "Price": 12915.2,
+            "Price": 12623.71,
             "Currency": "PTS"
         },
         "2454": {
@@ -57,39 +57,39 @@
             "Currency": "TWD"
         },
         "SPY": {
-            "Price": 775.94,
+            "Price": 773.93,
             "Currency": "USD"
         },
         "VT": {
-            "Price": 159.04,
+            "Price": 158.73,
             "Currency": "USD"
         },
         "GRAB": {
-            "Price": 3.1,
+            "Price": 3.11,
             "Currency": "USD"
         },
         "AVGO": {
-            "Price": 371.23,
+            "Price": 360.14,
             "Currency": "USD"
         },
         "GOOGL": {
-            "Price": 351.74,
+            "Price": 348.29,
             "Currency": "USD"
         },
         "NVDA": {
-            "Price": 236.73,
+            "Price": 230.48,
             "Currency": "USD"
         },
         "CRWD": {
-            "Price": 270.13,
+            "Price": 263.01,
             "Currency": "USD"
         },
         "PLTR": {
-            "Price": 200.23,
+            "Price": 198.78,
             "Currency": "USD"
         },
         "RBRK": {
-            "Price": 121.29,
+            "Price": 120.89,
             "Currency": "USD"
         }
     },
@@ -102,6 +102,6 @@
         "合計": "-915.75 億"
     },
     "metadata": {
-        "UpdateTime": "2026-10-08 14:45:53"
+        "UpdateTime": "2026-10-09 02:42:44"
     }
 }
