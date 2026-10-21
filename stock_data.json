@@ -1,7 +1,7 @@
 {
     "stocks": {
         "^TWII": {
-            "Price": 46292.93,
+            "Price": 46887.77,
             "Currency": "PTS"
         },
         "^GSPC": {
@@ -21,39 +21,39 @@
             "Currency": "PTS"
         },
         "2454": {
-            "Price": 4150.0,
+            "Price": 4140.0,
             "Currency": "TWD"
         },
         "6257": {
-            "Price": 238.0,
+            "Price": 248.0,
             "Currency": "TWD"
         },
         "2882": {
-            "Price": 110.0,
+            "Price": 114.0,
             "Currency": "TWD"
         },
         "2887": {
-            "Price": 41.0,
+            "Price": 41.95,
             "Currency": "TWD"
         },
         "2884": {
-            "Price": 48.35,
+            "Price": 49.2,
             "Currency": "TWD"
         },
         "2890": {
-            "Price": 44.25,
+            "Price": 45.4,
             "Currency": "TWD"
         },
         "00878": {
-            "Price": 34.88,
+            "Price": 35.39,
             "Currency": "TWD"
         },
         "00713": {
-            "Price": 64.85,
+            "Price": 65.3,
             "Currency": "TWD"
         },
         "006208": {
-            "Price": 245.3,
+            "Price": 247.6,
             "Currency": "TWD"
         },
         "SPY": {
@@ -73,7 +73,7 @@
             "Currency": "USD"
         },
         "GOOGL": {
-            "Price": 340.27,
+            "Price": 340.28,
             "Currency": "USD"
         },
         "NVDA": {
@@ -94,14 +94,14 @@
         }
     },
     "institutional_investors": {
-        "自營商(自行買賣)": "-68.55 億",
-        "自營商(避險)": "-287.24 億",
-        "投信": "187.59 億",
-        "外資及陸資(不含外資自營商)": "-795.4 億",
+        "自營商(自行買賣)": "-61.87 億",
+        "自營商(避險)": "-73.84 億",
+        "投信": "127.99 億",
+        "外資及陸資(不含外資自營商)": "22.39 億",
         "外資自營商": "0.0 億",
-        "合計": "-963.6 億"
+        "合計": "14.66 億"
     },
     "metadata": {
-        "UpdateTime": "2026-10-21 01:13:22"
+        "UpdateTime": "2026-10-21 13:03:15"
     }
 }
