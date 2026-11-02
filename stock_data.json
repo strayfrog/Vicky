@@ -1,7 +1,7 @@
 {
     "stocks": {
         "^TWII": {
-            "Price": 45211.83,
+            "Price": 44799.78,
             "Currency": "PTS"
         },
         "^GSPC": {
@@ -21,39 +21,39 @@
             "Currency": "PTS"
         },
         "2454": {
-            "Price": 3915.0,
+            "Price": 4025.0,
             "Currency": "TWD"
         },
         "6257": {
-            "Price": 210.0,
+            "Price": 209.0,
             "Currency": "TWD"
         },
         "2882": {
-            "Price": 116.0,
+            "Price": 115.5,
             "Currency": "TWD"
         },
         "2887": {
-            "Price": 42.25,
+            "Price": 41.7,
             "Currency": "TWD"
         },
         "2884": {
-            "Price": 49.05,
+            "Price": 48.7,
             "Currency": "TWD"
         },
         "2890": {
-            "Price": 46.5,
+            "Price": 46.0,
             "Currency": "TWD"
         },
         "00878": {
-            "Price": 34.81,
+            "Price": 34.71,
             "Currency": "TWD"
         },
         "00713": {
-            "Price": 65.7,
+            "Price": 65.55,
             "Currency": "TWD"
         },
         "006208": {
-            "Price": 240.75,
+            "Price": 238.35,
             "Currency": "TWD"
         },
         "SPY": {
@@ -102,6 +102,6 @@
         "合計": "-1402.18 億"
     },
     "metadata": {
-        "UpdateTime": "2026-11-01 14:24:30"
+        "UpdateTime": "2026-11-02 02:01:48"
     }
 }
