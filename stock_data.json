@@ -9,7 +9,7 @@
             "Currency": "PTS"
         },
         "^IXIC": {
-            "Price": 24579.42,
+            "Price": 24579.43,
             "Currency": "PTS"
         },
         "^DJI": {
@@ -49,7 +49,7 @@
             "Currency": "TWD"
         },
         "00713": {
-            "Price": 62.62,
+            "Price": 62.35,
             "Currency": "TWD"
         },
         "006208": {
@@ -94,9 +94,14 @@
         }
     },
     "institutional_investors": {
-        "status": "偵巡異常: HTTPSConnectionPool(host='www.twse.com.tw', port=443): Read timed out. (read timeout=20)"
+        "自營商(自行買賣)": "-43.09 億",
+        "自營商(避險)": "-451.67 億",
+        "投信": "266.91 億",
+        "外資及陸資(不含外資自營商)": "-911.88 億",
+        "外資自營商": "0.0 億",
+        "合計": "-1139.73 億"
     },
     "metadata": {
-        "UpdateTime": "2026-11-07 02:30:43"
+        "UpdateTime": "2026-11-07 14:15:42"
     }
 }
