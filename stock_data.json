@@ -1,67 +1,67 @@
 {
     "stocks": {
         "^TWII": {
-            "Price": 42711.92,
+            "Price": 43160.39,
             "Currency": "PTS"
         },
         "^GSPC": {
-            "Price": 7508.4,
+            "Price": 7520.93,
             "Currency": "PTS"
         },
         "^IXIC": {
-            "Price": 25099.47,
+            "Price": 25065.88,
             "Currency": "PTS"
         },
         "^DJI": {
-            "Price": 52111.59,
+            "Price": 52231.89,
             "Currency": "PTS"
         },
         "^SOX": {
-            "Price": 9998.03,
+            "Price": 9998.33,
             "Currency": "PTS"
         },
         "2454": {
-            "Price": 3830.0,
+            "Price": 3820.0,
             "Currency": "TWD"
         },
         "6257": {
-            "Price": 179.0,
+            "Price": 178.5,
             "Currency": "TWD"
         },
         "2882": {
-            "Price": 110.0,
+            "Price": 109.5,
             "Currency": "TWD"
         },
         "2887": {
-            "Price": 39.45,
+            "Price": 40.55,
             "Currency": "TWD"
         },
         "2884": {
-            "Price": 46.95,
+            "Price": 47.55,
             "Currency": "TWD"
         },
         "2890": {
-            "Price": 42.1,
+            "Price": 41.95,
             "Currency": "TWD"
         },
         "00878": {
-            "Price": 32.95,
+            "Price": 33.08,
             "Currency": "TWD"
         },
         "00713": {
-            "Price": 62.3,
+            "Price": 62.55,
             "Currency": "TWD"
         },
         "006208": {
-            "Price": 228.9,
+            "Price": 231.55,
             "Currency": "TWD"
         },
         "SPY": {
-            "Price": 748.66,
+            "Price": 749.92,
             "Currency": "USD"
         },
         "VT": {
-            "Price": 154.82,
+            "Price": 154.94,
             "Currency": "USD"
         },
         "GRAB": {
@@ -69,27 +69,27 @@
             "Currency": "USD"
         },
         "AVGO": {
-            "Price": 329.79,
+            "Price": 331.98,
             "Currency": "USD"
         },
         "GOOGL": {
-            "Price": 289.27,
+            "Price": 287.38,
             "Currency": "USD"
         },
         "NVDA": {
-            "Price": 170.73,
+            "Price": 168.89,
             "Currency": "USD"
         },
         "CRWD": {
-            "Price": 225.75,
+            "Price": 225.76,
             "Currency": "USD"
         },
         "PLTR": {
-            "Price": 166.93,
+            "Price": 168.82,
             "Currency": "USD"
         },
         "RBRK": {
-            "Price": 112.02,
+            "Price": 109.34,
             "Currency": "USD"
         }
     },
@@ -102,6 +102,6 @@
         "合計": "-117.62 億"
     },
     "metadata": {
-        "UpdateTime": "2026-11-10 15:42:23"
+        "UpdateTime": "2026-11-11 02:29:03"
     }
 }
